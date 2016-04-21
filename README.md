@@ -27,4 +27,6 @@ git clone https://github.com/botvs/SublimeBotVS.git
 
 ![](http://7xi2n7.com1.z0.glb.clouddn.com/d3ae82f66f84ab57cfe29e128d98b74d3f54dc43.png)
 
-![](https://dn-filebox.qbox.me/1ac82c6c061a288daf6c0dfce641c3334487eef5.png)
+![](https://dn-filebox.qbox.me/c94c427563c27ea3c178536a176e2e1e56647c34.png)
+
+
