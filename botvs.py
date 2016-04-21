@@ -72,6 +72,7 @@ def SyncFile(filename, token, content):
     if not success:
         sublime.status_message(msg)
         sublime.error_message(msg)
+    return success
 
 class SaveOnModifiedListener(sublime_plugin.EventListener):
     def on_load(self, view):
@@ -87,7 +88,7 @@ class SaveOnModifiedListener(sublime_plugin.EventListener):
         if buf_cache.get(token) == rawContent:
             sublime.error_message("BotVS sync abort because file not changed !")
             return
-        buf_cache[token] = rawContent
 
         file_name = os.path.basename(view.file_name())
-        SyncFile(file_name, token, content)   
+        if SyncFile(file_name, token, content):
+            buf_cache[token] = rawContent
