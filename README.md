@@ -8,12 +8,10 @@ BotVS - Sublime Plugin
 有两种方法安装插件
 
 1. Clone the repository into your Sublime Text 2/3 packages directory.
-
-`git clone https://github.com/botvs/SublimeBotVS.git`
+    `git clone https://github.com/botvs/SublimeBotVS.git`
 
 2. Download the .zip file and unzip it into your Sublime Text 2/3 packages directory.
-
-**Note:** You can find your Sublime Text 2/3 packages directory by going to Preferences > Browse Packages.
+    **Note:** You can find your Sublime Text 2/3 packages directory by going to Preferences > Browse Packages.
 
 ### 使用方法
 
