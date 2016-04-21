@@ -1,18 +1,30 @@
 BotVS - Sublime Plugin
 ==================
 
-使用此插件Sublime可以同步本地编辑的策略
+使用此插件Sublime可以同步本地编辑的策略到BotVS服务器上
 
 ### 安装方法
 
-有两种方法安装插件
+> 第一种方法:
 
-1. Clone the repository into your Sublime Text 2/3 packages directory.
-    `git clone https://github.com/botvs/SublimeBotVS.git`
+直接克隆当前仓库到 Sublime Text 2/3 packages directory.
+    
+```bash
+git clone https://github.com/botvs/SublimeBotVS.git
+```
 
-2. Download the .zip file and unzip it into your Sublime Text 2/3 packages directory.
-    **Note:** You can find your Sublime Text 2/3 packages directory by going to Preferences > Browse Packages.
+> 第二种方法:
+
+    下载zip文件并直接解压到 Sublime Text 2/3 packages directory.
+
+> 说明
+
+    插件目录在这里打开: Preferences > Browse Packages.
 
 ### 使用方法
 
 当你用Sublime保存带有token标识的策略源文件时, 该源文件会自动同步上传到BotVS服务器
+
+![](http://7xi2n7.com1.z0.glb.clouddn.com/d3ae82f66f84ab57cfe29e128d98b74d3f54dc43.png)
+
+![](https://dn-filebox.qbox.me/1ac82c6c061a288daf6c0dfce641c3334487eef5.png)
