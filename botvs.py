@@ -38,7 +38,7 @@ def getToken(view):
         else:
             view.add_regions(token_region, [pos], 'keyword', 'dot', sublime.HIDDEN)
             view.set_status("botvs", "BotVS - sync plugin loaded")
-            content, number = re.subn("//\s*botvs@[a-zA-Z0-9]{32}\s*",'',content)
+            content, number = re.subn("(//|#)\s*botvs@[a-zA-Z0-9]{32}\s*",'',content)
             return (match.group(1), content)
 
     
