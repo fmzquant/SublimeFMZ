@@ -25,11 +25,12 @@ rsync_url = "https://www.botvs.com/rsync"
 buf_cache = {}
 
 def getToken(view):
-    if 'JavaScript' not in view.settings().get("syntax"):
+    syntax = view.settings().get("syntax")
+    if 'JavaScript' not in syntax and 'Python' not in syntax:
         return (None, None)
     view.erase_regions(token_region)
     content = view.substr(sublime.Region(0, view.size()))
-    pos = view.find("^[ \t]*//\s*botvs@[a-zA-Z0-9]{32}[ \t]*$", 0)
+    pos = view.find("^[ \t]*(//|#)\s*botvs@[a-zA-Z0-9]{32}[ \t]*$", 0)
     if pos:
         match = pattern.search(view.substr(pos))
         if not match:
