@@ -21,7 +21,7 @@ pattern = re.compile(r'botvs@([a-zA-Z0-9]{32})')
 
 token_region = 'botvs_token'
 __version__ = '0.0.1'
-rsync_url = "https://www.botvs.com/rsync"
+rsync_url = "https://www.fmz.com/rsync"
 buf_cache = {}
 
 def getToken(view):
@@ -63,12 +63,12 @@ def SyncFile(filename, token, content):
             if errCode == 405:
                 msg = 'Sorry, ' + resp['user'] + ", sync failed !\n\nRenew the token of [" + resp['name'] + "]"
             elif errCode == 406:
-                msg = 'BotVS plugin for sublime need update ! \n\nhttp://www.botvs.com'
+                msg = 'FMZ plugin for sublime need update ! \n\nhttp://www.fmz.com'
             else:
-                msg = "BotVS sync [" + filename + " ] failed, errCode: %d\n\nMay be the token is not correct !" % errCode
+                msg = "FMZ sync [" + filename + " ] failed, errCode: %d\n\nMay be the token is not correct !" % errCode
             
     except:
-        msg = str(sys.exc_info()[1]) + "\n\nBotVS sync failed, please retry again !"
+        msg = str(sys.exc_info()[1]) + "\n\FMZ sync failed, please retry again !"
 
     if not success:
         sublime.status_message(msg)
@@ -79,7 +79,7 @@ class SaveOnModifiedListener(sublime_plugin.EventListener):
     def on_load(self, view):
         self.token = ''
         if getToken(view):
-            sublime.status_message("BotVS sync plugin ready .")
+            sublime.status_message("FMZ sync plugin ready .")
 
     def on_post_save(self, view):
         token, content = getToken(view)
@@ -87,7 +87,7 @@ class SaveOnModifiedListener(sublime_plugin.EventListener):
             return
         rawContent = view.substr(sublime.Region(0, view.size()))
         if buf_cache.get(token) == rawContent:
-            sublime.error_message("BotVS sync abort because file not changed !")
+            sublime.error_message("FMZ sync abort because file not changed !")
             return
 
         file_name = os.path.basename(view.file_name())
