@@ -17,7 +17,7 @@ except ImportError:
     from urllib.request import urlopen
     from urllib.parse import urlencode
 
-pattern = re.compile(r'botvs@([a-zA-Z0-9]{32})')
+pattern = re.compile(r'fmz@([a-zA-Z0-9]{32})')
 
 token_region = 'botvs_token'
 __version__ = '0.0.1'
@@ -30,25 +30,25 @@ def getToken(view):
         return (None, None)
     view.erase_regions(token_region)
     content = view.substr(sublime.Region(0, view.size()))
-    pos = view.find("^[ \t]*(//|#)\s*botvs@[a-zA-Z0-9]{32}[ \t]*$", 0)
+    pos = view.find("^[ \t]*(//|#)\s*fmz@[a-zA-Z0-9]{32}[ \t]*$", 0)
     if pos:
         match = pattern.search(view.substr(pos))
         if not match:
-            sublime.error_message("Invalid BotVS sync token !")
+            sublime.error_message("Invalid FMZ sync token !")
         else:
             view.add_regions(token_region, [pos], 'keyword', 'dot', sublime.HIDDEN)
-            view.set_status("botvs", "BotVS - sync plugin loaded")
-            content, number = re.subn("(//|#)\s*botvs@[a-zA-Z0-9]{32}\s*",'',content)
+            view.set_status("fmz", "FMZ - sync plugin loaded")
+            content, number = re.subn("(//|#)\s*fmz@[a-zA-Z0-9]{32}\s*",'',content)
             return (match.group(1), content)
 
     
-    view.erase_status("botvs")
+    view.erase_status("fmz")
     return (None, None)
 
 def SyncFile(filename, token, content):
     success = False
     errCode = 0
-    sublime.status_message("BotVS is Sync changed ....")
+    sublime.status_message("FMZ is Sync changed ....")
     msg = ""
     try:
         data = {'token': token, 'method':'push', 'content': content, 'version': __version__, 'client': 'sublime ' + sublime.version()}
