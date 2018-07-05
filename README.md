@@ -25,9 +25,3 @@ git clone https://github.com/fmzquant/SublimeFMZ.git
 
 当你用Sublime保存带有token标识的策略源文件时, 该源文件会自动同步上传到FMZ服务器
 
-![](http://7xi2n7.com1.z0.glb.clouddn.com/d3ae82f66f84ab57cfe29e128d98b74d3f54dc43.png)
-
-![](https://dn-filebox.qbox.me/c94c427563c27ea3c178536a176e2e1e56647c34.png)
-
-
-
