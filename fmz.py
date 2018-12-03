@@ -26,7 +26,7 @@ buf_cache = {}
 
 def getToken(view):
     syntax = view.settings().get("syntax")
-    if 'JavaScript' not in syntax and 'Python' not in syntax and 'C++' not in syntax:
+    if 'JavaScript' not in syntax and 'Python' not in syntax and 'C++' not in syntax and 'Text' not in syntax:
         return (None, None)
     view.erase_regions(token_region)
     content = view.substr(sublime.Region(0, view.size()))
