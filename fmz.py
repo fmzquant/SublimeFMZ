@@ -19,14 +19,13 @@ except ImportError:
 
 pattern = re.compile(r'fmz@([a-zA-Z0-9]{32})')
 
-token_region = 'botvs_token'
-__version__ = '0.0.1'
-rsync_url = "https://www.fmz.com/rsync"
+token_region = 'fmz_token'
+__version__ = '0.0.2'
 buf_cache = {}
 
 def getToken(view):
     syntax = view.settings().get("syntax")
-    if 'JavaScript' not in syntax and 'Python' not in syntax and 'C++' not in syntax and 'Text' not in syntax:
+    if 'JavaScript' not in syntax and 'Python' not in syntax and 'C++' not in syntax and 'Text' not in syntax and 'Pine' not in syntax:
         return (None, None)
     view.erase_regions(token_region)
     content = view.substr(sublime.Region(0, view.size()))
@@ -51,6 +50,7 @@ def SyncFile(filename, token, content):
     sublime.status_message("FMZ is Sync changed ....")
     msg = ""
     try:
+        rsync_url = "https://www.fmz.%s/rsync" % ("cn" if token[0] == 'n' else "com", )
         data = {'token': token, 'method':'push', 'content': content, 'version': __version__, 'client': 'sublime ' + sublime.version()}
         resp = json.loads(urlopen(rsync_url, urlencode(data).encode('utf8')).read().decode('utf8'))
         errCode = resp["code"]
