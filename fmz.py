@@ -3,7 +3,7 @@
 import sys
 
 import socket
-socket.setdefaulttimeout(20)
+socket.setdefaulttimeout(60)
 
 import sublime, sublime_plugin
 import time, os, re
