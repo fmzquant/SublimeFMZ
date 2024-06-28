@@ -3,7 +3,7 @@
 import sys
 
 import socket
-socket.setdefaulttimeout(60)
+socket.setdefaulttimeout(20)
 
 import sublime, sublime_plugin
 import time, os, re
@@ -33,10 +33,10 @@ def getToken(view):
     if pos:
         match = pattern.search(view.substr(pos))
         if not match:
-            sublime.error_message("Invalid FMZ sync token !")
+            sublime.error_message("Invalid sync token !")
         else:
             view.add_regions(token_region, [pos], 'keyword', 'dot', sublime.HIDDEN)
-            view.set_status("fmz", "FMZ - sync plugin loaded")
+            view.set_status("quant", "sync plugin loaded")
             content, number = re.subn("(//|#)\s*fmz@[a-zA-Z0-9]{32}\s*",'',content)
             return (match.group(1), content)
 
@@ -47,10 +47,13 @@ def getToken(view):
 def SyncFile(filename, token, content):
     success = False
     errCode = 0
-    sublime.status_message("FMZ is Sync changed ....")
+    rsync_url = "https://www.fmz.com/rsync"
+    if token[0] == 'n':
+        rsync_url = "https://www.youquant.com/rsync"
+        name = 'YouQuant'
+    sublime.status_message(name + " is Sync changed ....")
     msg = ""
     try:
-        rsync_url = "https://www.fmz.%s/rsync" % ("cn" if token[0] == 'n' else "com", )
         data = {'token': token, 'method':'push', 'content': content, 'version': __version__, 'client': 'sublime ' + sublime.version()}
         resp = json.loads(urlopen(rsync_url, urlencode(data).encode('utf8')).read().decode('utf8'))
         errCode = resp["code"]
@@ -63,12 +66,12 @@ def SyncFile(filename, token, content):
             if errCode == 405:
                 msg = 'Sorry, ' + resp['user'] + ", sync failed !\n\nRenew the token of [" + resp['name'] + "]"
             elif errCode == 406:
-                msg = 'FMZ plugin for sublime need update ! \n\nhttp://www.fmz.com'
+                msg = 'plugin for sublime need update !'
             else:
-                msg = "FMZ sync [" + filename + " ] failed, errCode: %d\n\nMay be the token is not correct !" % errCode
+                msg = "sync [" + filename + " ] failed, errCode: %d\n\nMay be the token is not correct !" % errCode
             
     except:
-        msg = str(sys.exc_info()[1]) + "\n\FMZ sync failed, please retry again !"
+        msg = str(sys.exc_info()[1]) + "\n\sync failed, please retry again !"
 
     if not success:
         sublime.status_message(msg)
@@ -79,7 +82,7 @@ class SaveOnModifiedListener(sublime_plugin.EventListener):
     def on_load(self, view):
         self.token = ''
         if getToken(view):
-            sublime.status_message("FMZ sync plugin ready .")
+            sublime.status_message("sync plugin ready .")
 
     def on_post_save(self, view):
         token, content = getToken(view)
@@ -87,7 +90,7 @@ class SaveOnModifiedListener(sublime_plugin.EventListener):
             return
         rawContent = view.substr(sublime.Region(0, view.size()))
         if buf_cache.get(token) == rawContent:
-            sublime.error_message("FMZ sync abort because file not changed !")
+            sublime.error_message("sync abort because file not changed !")
             return
 
         file_name = os.path.basename(view.file_name())
