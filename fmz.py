@@ -48,6 +48,7 @@ def SyncFile(filename, token, content):
     success = False
     errCode = 0
     rsync_url = "https://www.fmz.com/rsync"
+    name = 'FMZ'
     if token[0] == 'n':
         rsync_url = "https://www.youquant.com/rsync"
         name = 'YouQuant'
