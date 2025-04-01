@@ -10,11 +10,12 @@ import time, os, re
 import json
 
 try:
-    from urllib import urlopen, urlencode
+    from urllib import urlencode
+    from urllib2 import Request, urlopen
     reload(sys)   
     sys.setdefaultencoding('utf8')
 except ImportError:
-    from urllib.request import urlopen
+    from urllib.request import Request, urlopen
     from urllib.parse import urlencode
 
 pattern = re.compile(r'fmz@([a-zA-Z0-9]{32})')
@@ -56,7 +57,9 @@ def SyncFile(filename, token, content):
     msg = ""
     try:
         data = {'token': token, 'method':'push', 'content': content, 'version': __version__, 'client': 'sublime ' + sublime.version()}
-        resp = json.loads(urlopen(rsync_url, urlencode(data).encode('utf8')).read().decode('utf8'))
+        req = Request(rsync_url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0')
+        resp = json.loads(urlopen(req, urlencode(data).encode('utf8')).read().decode('utf8'))
         errCode = resp["code"]
         if errCode < 100:
             success = True
